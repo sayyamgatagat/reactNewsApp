@@ -3,29 +3,14 @@ const cors = require('cors');
 var unirest = require("unirest");
 const app = express();
 require('dotenv').config();
-
 app.get('/getnews',cors(),(req,res)=>{
-  var req = unirest("GET", "https://bing-news-search1.p.rapidapi.com/news");
-
-    req.query({
-      "mkt": "en-IN",
-      "safeSearch": "Off",
-      "textFormat": "Raw",
-      "count": 50
-    });
-    req.headers({
-      "x-bingapis-sdk": "true",
-      "x-rapidapi-key": process.env.API_KEY,
-      "x-rapidapi-host": "bing-news-search1.p.rapidapi.com",
-      "useQueryString": true
-    });
-
-
+  API_link = "https://newsapi.org/v2/top-headlines?country=in&apiKey=" + process.env.API_KEY;
+  var req = unirest("GET",API_link );
     req.end(function (resp) {
       if (resp.error) throw new Error(resp.error);
     
-    console.log(resp.body);
-    res.json(resp.body.value);
+    console.log(resp.body.articles);
+    res.json(resp.body.articles);
   });
 })
 

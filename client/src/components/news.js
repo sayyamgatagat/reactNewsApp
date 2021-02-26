@@ -21,11 +21,11 @@ class News extends Component {
       <div>
           <h1 className="news-heading">Top News</h1>
           {this.state.news.map((n)=>{
-            if (n.image !== undefined){
-              return <NewsCard name = {n.name} desc = {n.description} url = {n.url} date={n.datePublished} img={n.image.thumbnail.contentUrl}/>
+            if (n.urlToImage !== null && n.content != null){
+              return <NewsCard name = {n.title} desc = {n.content} url = {n.url} date={n.publishedAt} img={n.urlToImage}/>
             }
           })}
-        
+          
       </div>
     );
   }
